@@ -1,0 +1,42 @@
+{% extends 'home/base.html' %}
+{% block title %}Tasks{% endblock title %}
+
+{% block body %}
+<div class="container my-3 w-50">
+    <h2 class="text-center border border-dark rounded-pill">LIST OF TASKS</h2>
+
+</div>
+<div class="container mt-4" >
+<table class="table mt-4">
+  <thead>
+    <tr>
+      <th scope="col">Sr.no</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Time</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in all_tasks %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{t.title}}</td>
+      <td>{{t.desc}}</td>
+      <td>{{t.time}}</td>
+      <td><form action="{% url 'deletedata' t.id %}" method="post" class="d-inline">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+      </form></td>
+<td><form action="{% url 'updatedata' t.id %}" method="post" class="d-inline">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-success btn-sm" value="Edit">
+      </form></td>
+    </tr>
+    {% endfor %}
+   
+ 
+  </tbody>
+</table>
+</div>
+{% endblock body %}
